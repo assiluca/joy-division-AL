@@ -1,6 +1,6 @@
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import { mdsvex } from 'mdsvex'; // Corretto: di solito è 'mdsvex', non 'npmsvex'
+import { mdsvex } from 'mdsvex';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -18,7 +18,6 @@ const config = {
     },
 
     kit: {
-        // Questa è la parte che ti mancava
         adapter: adapter({
             // Cartelle dove verrà generato il sito
             pages: 'build',

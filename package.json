@@ -5,13 +5,18 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
+		"dev:wsl": "node ./node_modules/.bin/vite dev",
 		"build": "vite build",
+		"build:wsl": "node ./node_modules/.bin/vite build",
 		"preview": "vite preview",
+		"preview:wsl": "node ./node_modules/.bin/vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"check:wsl": "node ./node_modules/.bin/svelte-kit sync && node ./node_modules/.bin/svelte-check --tsconfig ./tsconfig.json"
 	},
 	"devDependencies": {
+		"@types/node": "^24.5.2",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.57.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
