@@ -7,7 +7,7 @@
 
 	let { children } = $props();
 	const fontCrossorigin: '' = '';
-	const adobeKitId = env.PUBLIC_ADOBE_KIT_ID?.trim() ?? '';
+	const adobeKitId = env.PUBLIC_ADOBE_KIT_ID?.trim() || 'him7igw';
 </script>
 
 <svelte:head>

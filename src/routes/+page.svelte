@@ -148,18 +148,41 @@
 			{/each}
 		</div>
 
-		<p class="band-line">
-			La band era costituita da
-			{#each members as member, index}
-				<button
-					type="button"
-					class:active={activeMemberIndex === index}
-					onclick={() => (activeMemberIndex = index)}
-				>
-					{member.name}
-				</button>
-			{/each}
-		</p>
+		<div class="band-line">
+			<div class="band-line-top">
+				<span>La band era costituita da</span>
+				{#each members.slice(0, 2) as member, index}
+					<span class="member-token">
+						<button
+							type="button"
+							class:active={activeMemberIndex === index}
+							onclick={() => (activeMemberIndex = index)}
+						>
+							{member.name.replace(/,\s*$/, '')}
+						</button>
+						{#if member.name.trim().endsWith(',')}
+							<span class="member-comma">,</span>
+						{/if}
+					</span>
+				{/each}
+			</div>
+			<div class="band-line-bottom">
+				{#each members.slice(2) as member, index}
+					<span class="member-token">
+						<button
+							type="button"
+							class:active={activeMemberIndex === index + 2}
+							onclick={() => (activeMemberIndex = index + 2)}
+						>
+							{member.name.replace(/,\s*$/, '')}
+						</button>
+						{#if member.name.trim().endsWith(',')}
+							<span class="member-comma">,</span>
+						{/if}
+					</span>
+				{/each}
+			</div>
+		</div>
 	</section>
 
 	<nav class="filters" aria-label="Filtri">
@@ -230,7 +253,7 @@
 	}
 
 	h1 {
-		font-family: 'Trajan Pro 3', 'Cormorant Garamond', serif;
+		font-family: 'trajan-pro-3', 'Trajan Pro 3', 'Cormorant Garamond', serif;
 		font-size: 96px;
 		font-weight: 300;
 		letter-spacing: 0.015em;
@@ -244,7 +267,7 @@
 		align-items: flex-start;
 		gap: 64px;
 		height: 949px;
-		padding: 221px 80px 32px;
+		padding: 608px 80px 32px;
 	}
 
 	.header-lead,
@@ -267,8 +290,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 80px;
-		height: 696px;
+		gap: 32px;
 		padding: 16px 80px 64px;
 	}
 
@@ -300,23 +322,57 @@
 	}
 
 	.band-line {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
 		font-size: 36px;
-		line-height: 49px;
+		line-height: normal;
 		margin: 0;
 		width: 1128px;
 	}
 
+	.band-line-top,
+	.band-line-bottom {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 8px;
+		align-items: flex-start;
+		width: 100%;
+	}
+
+	.band-line-top span {
+		flex: 0 0 auto;
+	}
+
+	.member-token {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0;
+	}
+
+	.member-comma {
+		text-decoration: none;
+	}
+
+	.band-line-bottom {
+		padding-left: 0;
+	}
+
 	.band-line button {
+		appearance: none;
 		background: none;
 		border: 0;
 		color: rgb(17, 17, 17);
 		cursor: pointer;
 		font: inherit;
+		flex: 0 0 auto;
 		margin: 0;
 		padding: 0;
-		text-decoration: underline;
-		text-decoration-color: transparent;
-		transition: text-decoration-color 150ms ease;
+		text-decoration-line: underline;
+		text-decoration-thickness: 3px;
+		text-underline-offset: 0.22em;
+		text-decoration-skip-ink: auto;
+		text-decoration-color: currentcolor;
 	}
 
 	.band-line button.active,
@@ -411,7 +467,7 @@
 	}
 
 	h2 {
-		font-family: 'Trajan Pro 3', 'Cormorant Garamond', serif;
+		font-family: 'trajan-pro-3', 'Trajan Pro 3', 'Cormorant Garamond', serif;
 		font-size: 56px;
 		font-weight: 300;
 		line-height: 1.2;
