@@ -1,12 +1,13 @@
 <script lang="ts">
 	import atmosphereImg from '$lib/assets/foto sito joy division/atmosphere.jpg';
-	import bernardImg from '$lib/assets/foto sito joy division/2.jpg';
+	import bernardImg from '$lib/assets/foto sito joy division/3.jpg';
 	import closerImg from '$lib/assets/foto sito joy division/closer.jpg';
-	import closerGrossoImg from '$lib/assets/foto sito joy division/closer grosso.jpg';
-	import ianImg from '$lib/assets/foto sito joy division/1.jpg';
+	import closerVuotoImg from '$lib/assets/foto sito joy division/closer vuoto.jpg';
+	import groupBandImg from '$lib/assets/foto sito joy division/gruppo joy division.jpg';
+	import ianImg from '$lib/assets/foto sito joy division/4.jpg';
 	import loveImg from '$lib/assets/foto sito joy division/Love-Will-Tear-Us-Apart.jpg';
-	import peterImg from '$lib/assets/foto sito joy division/3.jpg';
-	import stephenImg from '$lib/assets/foto sito joy division/4.jpg';
+	import peterImg from '$lib/assets/foto sito joy division/2.jpg';
+	import stephenImg from '$lib/assets/foto sito joy division/1.jpg';
 	import stillImg from '$lib/assets/foto sito joy division/still.png';
 	import substanceImg from '$lib/assets/foto sito joy division/substance.png';
 	import unknownPleasuresImg from '$lib/assets/foto sito joy division/unknown pleasures.jpg';
@@ -102,15 +103,39 @@
 	];
 
 	let activeFilter = $state<Filter>('tutto');
-	let activeMemberIndex = $state(0);
+	let activeMemberIndex = $state<number | null>(null);
 	let closerHovered = $state(false);
+	let selectedListenTitle = $state<string | null>(null);
+	let titleSelected = $state(false);
+
+	const closerCaption =
+		'Foto realizzata da Bernard Pierre Wolff e raffigurante la tomba della famiglia Appiani, sita presso il Cimitero monumentale di Staglieno di Genova.';
 
 	const visibleGroups = $derived(activeFilter === 'tutto' ? groups : [activeFilter]);
+	const activeMemberImage = $derived(
+		activeMemberIndex === null ? groupBandImg : members[activeMemberIndex].image
+	);
+	const activeMemberAlt = $derived(
+		activeMemberIndex === null ? 'Joy Division - foto di gruppo' : members[activeMemberIndex].name
+	);
+
+	const toggleMember = (index: number) => {
+		activeMemberIndex = activeMemberIndex === index ? null : index;
+	};
 </script>
 
-<main class="desktop">
+<main class="desktop" id="top">
 	<section class="top-title">
-		<h1>JOY DIVISION</h1>
+		<h1>
+			<a
+				href="#top"
+				class="title-link"
+				class:selected={titleSelected}
+				onclick={() => (titleSelected = !titleSelected)}
+			>
+				JOY DIVISION
+			</a>
+		</h1>
 	</section>
 
 	<section class="header">
@@ -127,36 +152,18 @@
 
 	<section class="band">
 		<div class="band-media">
-			{#each members as member, index}
-				{#if index === 0}
-					<img
-						class:active={activeMemberIndex === index}
-						class="member-image"
-						src={member.image}
-						alt={member.name}
-						loading="lazy"
-					/>
-				{:else}
-					<img
-						class:active={activeMemberIndex === index}
-						class="member-image"
-						src={member.image}
-						alt={member.name}
-						loading="lazy"
-					/>
-				{/if}
-			{/each}
+			<img class="member-image active" src={activeMemberImage} alt={activeMemberAlt} loading="lazy" />
 		</div>
 
 		<div class="band-line">
 			<div class="band-line-top">
 				<span>La band era costituita da</span>
 				{#each members.slice(0, 2) as member, index}
-					<span class="member-token">
+					<span class="member-token" class:active={activeMemberIndex === index}>
 						<button
 							type="button"
 							class:active={activeMemberIndex === index}
-							onclick={() => (activeMemberIndex = index)}
+							onclick={() => toggleMember(index)}
 						>
 							{member.name.replace(/,\s*$/, '')}
 						</button>
@@ -168,11 +175,11 @@
 			</div>
 			<div class="band-line-bottom">
 				{#each members.slice(2) as member, index}
-					<span class="member-token">
+					<span class="member-token" class:active={activeMemberIndex === index + 2}>
 						<button
 							type="button"
 							class:active={activeMemberIndex === index + 2}
-							onclick={() => (activeMemberIndex = index + 2)}
+							onclick={() => toggleMember(index + 2)}
 						>
 							{member.name.replace(/,\s*$/, '')}
 						</button>
@@ -201,25 +208,40 @@
 		{#each visibleGroups as group}
 			<div class="group-block">
 				{#each data[group] as release}
-					<article
-						class="release-card"
-						onmouseenter={() => release.title === 'Closer' && (closerHovered = true)}
-						onmouseleave={() => release.title === 'Closer' && (closerHovered = false)}
-					>
-						<img
-							src={release.title === 'Closer' && closerHovered ? closerGrossoImg : release.image}
-							alt={release.title}
-							loading="lazy"
-						/>
-						<div class="copy-wrap">
-							<h2>{release.title}</h2>
-							<div class="description-wrap" style={`top:${release.textTop}px;`}>
-								<p>{release.description}</p>
-								<a href={release.spotify} target="_blank" rel="noreferrer">ASCOLTA →</a>
-							</div>
-						</div>
-					</article>
-				{/each}
+    <article class="release-card">
+    
+        <div 
+            class="release-cover-wrap"
+            onmouseenter={() => release.title === 'Closer' && (closerHovered = true)}
+            onmouseleave={() => release.title === 'Closer' && (closerHovered = false)}
+        >
+            <img
+                src={release.title === 'Closer' && closerHovered ? closerVuotoImg : release.image}
+                alt={release.title}
+                loading="lazy"
+            />
+            {#if release.title === 'Closer' && closerHovered}
+                <p class="closer-caption">{closerCaption}</p>
+            {/if}
+        </div>
+        
+        <div class="copy-wrap">
+            <h2>{release.title}</h2>
+            <div class="description-wrap" style={`top:${release.textTop}px;`}>
+                <p>{release.description}</p>
+                <button
+    type="button"
+    class="listen-btn"
+    class:selected={selectedListenTitle === release.title}
+    onclick={() => (selectedListenTitle = selectedListenTitle === release.title ? null : release.title)}
+>
+    ASCOLTA →
+</button>
+            </div>
+        </div>
+        
+    </article>
+{/each}
 			</div>
 		{/each}
 	</section>
@@ -259,6 +281,20 @@
 		letter-spacing: 0.015em;
 		line-height: 1;
 		margin: 0;
+	}
+
+	.title-link {
+		color: rgb(17, 17, 17);
+		text-decoration: none;
+		transition: color 160ms ease;
+	}
+
+	.title-link:hover {
+		color: rgb(51, 51, 51);
+	}
+
+	.title-link.selected {
+		color: rgb(22, 128, 19);
 	}
 
 	.header {
@@ -340,18 +376,21 @@
 		width: 100%;
 	}
 
-	.band-line-top span {
+	.band-line-top > span:first-child {
 		flex: 0 0 auto;
 	}
 
 	.member-token {
 		display: inline-flex;
+		flex: 0 0 auto;
 		align-items: baseline;
 		gap: 0;
 	}
 
 	.member-comma {
+		color: rgb(17, 17, 17);
 		text-decoration: none;
+		transition: color 150ms ease;
 	}
 
 	.band-line-bottom {
@@ -373,11 +412,29 @@
 		text-underline-offset: 0.22em;
 		text-decoration-skip-ink: auto;
 		text-decoration-color: currentcolor;
+		white-space: nowrap;
+		transition: color 150ms ease;
+	}
+
+	.band-line button:hover {
+		color: rgb(51, 51, 51);
+	}
+
+	.member-token:hover .member-comma {
+		color: rgb(51, 51, 51);
 	}
 
 	.band-line button.active,
 	.band-line button:hover {
 		text-decoration-color: currentcolor;
+	}
+
+	.band-line button.active {
+		color: rgb(22, 128, 19);
+	}
+
+	.member-token.active .member-comma {
+		color: rgb(22, 128, 19);
 	}
 
 	.filters {
@@ -447,15 +504,27 @@
 		padding: 0 80px;
 	}
 
+	.release-cover-wrap {
+		height: 549px;
+		position: relative;
+		width: 549px;
+	}
+
 	.release-card img {
 		height: 549px;
 		object-fit: cover;
 		width: 549px;
-		transition: transform 180ms ease, opacity 180ms ease;
 	}
 
-	.release-card:hover img {
-		transform: scale(1.01);
+	.closer-caption {
+		color: rgb(17, 17, 17);
+		font-size: 16px;
+		line-height: 1.33;
+		left: 82px;
+		margin: 0;
+		position: absolute;
+		top: 83px;
+		width: 375px;
 	}
 
 	.copy-wrap {
@@ -485,25 +554,47 @@
 	}
 
 	.description-wrap p {
-		font-size: 24px;
-		line-height: 1.33;
-		margin: 0;
-	}
+    color: rgb(17, 17, 17); /* Equivalente al tuo var(--Color-Content-Primary, #111) */
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    padding-bottom: 24px; /* Aggiunge un po' di respiro tra il testo e il bottone "Ascolta" */
+}
 
-	.description-wrap a {
-		color: rgb(17, 17, 17);
-		font-size: 24px;
-		font-weight: 500;
-		line-height: 1.33;
-		margin-top: auto;
-		text-decoration: none;
-		width: max-content;
-		transition: opacity 160ms ease;
-	}
+	.listen-btn {
+    /* Regole dal prototipo Figma */
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-	.description-wrap a:hover {
-		opacity: 0.7;
-	}
+    /* Reset del bottone di default del browser */
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    /* Stile tipografico e posizionamento (recuperato dalle tue vecchie regole) */
+    color: rgb(17, 17, 17);
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.33;
+    margin-top: auto; /* Lo spinge in fondo al suo contenitore */
+    width: max-content;
+    transition: opacity 160ms ease, color 160ms ease;
+}
+
+.listen-btn:hover {
+    opacity: 0.7;
+}
+
+/* Stile per quando il bottone viene cliccato (stato "selected") */
+.listen-btn.selected {
+    color: rgb(22, 128, 19); /* Riprende il verde del tuo tema */
+}
 
 	.footer {
 		height: 193px;
