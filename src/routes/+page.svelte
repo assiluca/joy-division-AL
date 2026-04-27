@@ -212,6 +212,8 @@
     
         <div 
             class="release-cover-wrap"
+			role="img"
+			aria-label={release.title}
             onmouseenter={() => release.title === 'Closer' && (closerHovered = true)}
             onmouseleave={() => release.title === 'Closer' && (closerHovered = false)}
         >
@@ -245,7 +247,7 @@
 			</div>
 		{/each}
 	</section>
-
+	
 	<footer class="footer">
 		<p>by Assinnato Luca</p>
 	</footer>
@@ -597,6 +599,9 @@
 }
 
 	.footer {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		height: 193px;
 		padding: 72px 80px;
 	}
@@ -605,5 +610,307 @@
 		font-size: 36px;
 		line-height: 49px;
 		margin: 0;
+		text-align: center;
 	}
+
+/* Tablet & small desktop responsive rules */
+@media (max-width: 1024px) {
+	:global(body) {
+		background: rgb(250, 250, 250);
+		color: rgb(17, 17, 17);
+		font-family: 'Satoshi', 'Inter', sans-serif;
+		margin: 0;
+		min-width: auto;
+		padding: 0;
+	}
+
+	.desktop {
+		width: 100%;
+		max-width: 1024px;
+		margin: 0 auto;
+	}
+
+	.top-title {
+		height: 176px;
+		padding: 48px 24px;
+	}
+
+	h1 {
+		font-size: 72px;
+	}
+
+	.header {
+		gap: 32px;
+		height: auto;
+		padding: 520px 24px 32px;
+	}
+
+	.header-lead,
+	.header-body {
+		font-size: 24px;
+		line-height: 1.33;
+	}
+
+	.header-lead {
+		width: 100%;
+	}
+
+	.header-body {
+		width: 100%;
+	}
+
+	.band {
+		padding: 16px 24px 48px;
+	}
+
+	.band-media {
+		height: 420px;
+		width: 100%;
+	}
+
+	.member-image {
+		position: relative;
+		width: 100%;
+		height: 420px;
+		object-fit: cover;
+	}
+
+	.band-line {
+		font-size: 24px;
+		width: 100%;
+	}
+
+	.band-line-top,
+	.band-line-bottom {
+		flex-wrap: wrap;
+	}
+
+	.filters {
+		padding: 24px;
+		gap: 12px;
+		flex-wrap: wrap;
+		height: auto;
+	}
+
+	.filters button {
+		font-size: 20px;
+		height: 42px;
+	}
+
+	.filters button:nth-child(n) {
+		width: auto;
+	}
+
+	.content {
+		gap: 80px;
+		min-height: auto;
+		padding: 32px 0;
+	}
+
+	.group-block {
+		gap: 80px;
+		height: auto;
+	}
+
+	.release-card {
+		flex-direction: column;
+		align-items: stretch;
+		padding: 0;
+		width: 100%;
+		height: auto;
+	}
+
+	.release-cover-wrap {
+		width: min(100%, 520px);
+		height: auto;
+		margin: 0 auto;
+	}
+
+	.release-card img {
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+	}
+
+	.copy-wrap {
+		width: min(100%, 520px);
+		height: auto;
+		position: static;
+		padding: 24px 0;
+		margin: 0 auto;
+	}
+
+	h2 {
+		font-size: 44px;
+		text-align: center;
+	}
+
+	.description-wrap {
+		position: static;
+		width: 100%;
+		padding-top: 20px;
+	}
+
+	.description-wrap p {
+		font-size: 20px;
+		width: 100%;
+	}
+
+	.closer-caption {
+		position: static;
+		left: 0;
+		top: 0;
+		width: 100%;
+		margin: 0 0 16px 0;
+		padding: 0 16px;
+	}
+
+	.listen-btn {
+		font-size: 20px;
+	}
+
+	.footer {
+		padding: 48px 24px;
+		height: auto;
+	}
+
+	.footer p {
+		font-size: 24px;
+		line-height: 1.3;
+	}
+}
+
+/* Mobile rules based on the Figma mobile prototype */
+@media (max-width: 767px) {
+	:global(body) {
+		min-width: 0;
+	}
+
+	.desktop {
+		max-width: 402px;
+	}
+
+	.top-title {
+		height: 105px;
+		padding: 16px 24px;
+	}
+
+	h1 {
+		font-size: 40px;
+	}
+
+	.header {
+		gap: 64px;
+		padding: 863px 24px 152px;
+	}
+
+	.header-lead,
+	.header-body {
+		font-size: 24px;
+		line-height: normal;
+	}
+
+	.band {
+		gap: 16px;
+		padding: 0 24px;
+	}
+
+	.band-media {
+		height: 200px;
+	}
+
+	.member-image {
+		height: 200px;
+	}
+
+	.band-line {
+		font-size: 16px;
+		gap: 4px;
+	}
+
+	.band-line-top,
+	.band-line-bottom {
+		gap: 8px;
+	}
+
+	.band-line button {
+		text-decoration-thickness: 2px;
+	}
+
+	.filters {
+		padding: 32px 24px;
+		gap: 16px;
+	}
+
+	.filters button {
+		font-size: 16px;
+		height: auto;
+		padding: 4px 8px;
+	}
+
+	.content {
+		gap: 56px;
+		padding: 0 0 24px;
+	}
+
+	.group-block {
+		gap: 56px;
+	}
+
+	.release-card {
+		gap: 16px;
+		align-items: center;
+	}
+
+	.release-cover-wrap {
+		width: 100%;
+		max-width: 354px;
+	}
+
+	.release-card img {
+		aspect-ratio: 1 / 1;
+		object-fit: cover;
+	}
+
+	.copy-wrap {
+		width: 100%;
+		max-width: 354px;
+		padding: 0;
+		margin: 0 auto;
+	}
+
+	h2 {
+		font-size: 32px;
+		width: 100%;
+		text-align: center;
+	}
+
+	.description-wrap {
+		padding-top: 0;
+		gap: 16px;
+	}
+
+	.description-wrap p {
+		font-size: 16px;
+		line-height: 1.35;
+		padding-bottom: 0;
+	}
+
+	.listen-btn {
+		font-size: 16px;
+	}
+
+	.closer-caption {
+		display: none;
+	}
+
+	.footer {
+		padding: 40px 24px 56px;
+	}
+
+	.footer p {
+		font-size: 16px;
+		line-height: normal;
+	}
+}
 </style>
