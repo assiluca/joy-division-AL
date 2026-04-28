@@ -1,5 +1,24 @@
 :root {
-	--color-bg: #f4f4f2;
-	--color-text: #0f0f0f;
-	--color-accent: #3ea874;
+	color-scheme: light dark;
+	--color-background-primary: #fafafa;
+	--color-background-secondary: #eeedee;
+	--color-content-primary: #111111;
+	--color-content-muted: #333333;
+	--color-link-default: #111111;
+	--color-link-selected: #168013;
+
+	--color-bg: var(--color-background-primary);
+	--color-text: var(--color-content-primary);
+	--color-accent: var(--color-link-selected);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-background-primary: #111111;
+		--color-background-secondary: #1a1a1a;
+		--color-content-primary: #fafafa;
+		--color-content-muted: #d0d0d0;
+		--color-link-default: #fafafa;
+		--color-link-selected: #3ea874;
+	}
 }
