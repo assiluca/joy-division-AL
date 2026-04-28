@@ -221,7 +221,10 @@
 
                         <div class="copy-wrap">
                             <h2>{release.title}</h2>
-                            <div class="description-wrap" style={`top:${release.textTop}px;`}>
+                            <div
+                                class="description-wrap"
+                                style={typeof window !== 'undefined' && window.innerWidth > 1024 ? `top:${release.textTop}px` : undefined}
+                            >
                                 <p>{release.description}</p>
                                 <button
                                     type="button"
@@ -229,7 +232,8 @@
                                     class:selected={selectedListenTitle === release.title}
                                     onclick={() => (selectedListenTitle = selectedListenTitle === release.title ? null : release.title)}
                                 >
-                                    ASCOLTA →
+                                    <span class="listen-label">ASCOLTA</span>
+                                    <span class="listen-arrow" aria-hidden="true">→</span>
                                 </button>
                             </div>
                         </div>
@@ -305,8 +309,8 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 64px;
-        height: 949px;
-        padding: 608px 80px 32px;
+        height: auto;
+        padding: 160px 80px 32px;
     }
 
     .header-lead,
@@ -448,8 +452,8 @@
     .filters {
         display: flex;
         gap: 24px;
-        height: 112px;
-        padding: 32px 80px;
+        height: auto;
+        padding: 24px 24px;
     }
 
     .filters button {
@@ -481,7 +485,7 @@
         display: flex;
         flex-direction: column;
         gap: 160px;
-        min-height: 4222px;
+        min-height: 0;
         padding: 64px 0;
     }
 
@@ -489,48 +493,94 @@
         display: flex;
         flex-direction: column;
         gap: 160px;
-        height: 1258px;
+        height: auto;
     }
 
     .release-card {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        height: 549px;
+        height: auto;
         width: 100%;
-        padding: 0 80px;
+        padding: 0 24px;
     }
 
     .release-cover-wrap {
-        height: 549px;
+        height: auto;
         position: relative;
-        width: 549px;
+        width: 100%;
+        max-width: 549px;
     }
 
     .release-card img {
-        height: 549px;
+        height: auto;
         object-fit: cover;
-        width: 549px;
+        width: 100%;
+        max-width: 549px;
     }
 
     .closer-caption {
-        color: #111111;
-        font-size: 16px;
-        line-height: 1.33;
-        margin: 0;
         position: absolute;
         top: 15.12%;
         left: 14.94%;
         right: 16.76%;
-        width: auto;
+        font-size: 16px;
+        line-height: 1.33;
+        margin: 0;
+        color: #111111 !important; /* Forza il nero */
+        z-index: 10;
     }
 
     .copy-wrap {
         display: flex;
         flex-direction: column;
-        height: 549px;
-        width: 664px;
+        height: auto;
+        width: 100%;
+        max-width: 664px;
         position: relative;
+    }
+
+    /* Desktop-only fixed sizing preserved for large screens */
+    @media (min-width: 1025px) {
+        .header {
+            height: 949px;
+            padding: 608px 80px 32px;
+        }
+
+        .filters {
+            height: 112px;
+            padding: 32px 80px;
+        }
+
+        .content {
+            gap: 160px;
+            min-height: 4222px;
+        }
+
+        .group-block {
+            gap: 160px;
+            height: 1258px;
+        }
+
+        .release-card {
+            height: 549px;
+            padding: 0 80px;
+        }
+
+        .release-cover-wrap {
+            height: 549px;
+            width: 549px;
+        }
+
+        .release-card img {
+            height: 549px;
+            width: 549px;
+        }
+
+        .copy-wrap {
+            height: 549px;
+            width: 664px;
+        }
     }
 
     h2 {
@@ -585,8 +635,43 @@
         opacity: 0.7;
     }
 
+    .listen-label {
+        display: inline-block;
+    }
+
+    .listen-arrow {
+        display: inline-block;
+        opacity: 0;
+        transform: translateX(-8px);
+        transition:
+            opacity 160ms ease,
+            transform 160ms ease;
+    }
+
+    .listen-btn:hover .listen-arrow,
+    .listen-btn.selected .listen-arrow {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
     .listen-btn.selected {
         color: var(--color-link-selected);
+    }
+
+    @media (hover: none), (pointer: coarse) {
+        .listen-btn:hover {
+            opacity: 1;
+        }
+
+        .listen-btn:hover .listen-arrow {
+            opacity: 0;
+            transform: translateX(-8px);
+        }
+
+        .listen-btn.selected .listen-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
 
     .footer {
@@ -649,16 +734,17 @@
         }
 
         .band-media {
-            height: auto;
             width: 100%;
             max-width: 661px;
+            height: 424px;
         }
 
         .member-image {
+            position: relative;
             width: 100%;
             max-width: 661px;
-            height: auto;
-            object-fit: contain;
+            height: 424px;
+            object-fit: cover;
         }
 
         .band-line {
@@ -742,34 +828,39 @@
 
         .description-wrap {
             position: static;
-            display: flex;
-            height: 242px;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: flex-start;
-            gap: 32px;
-            flex-shrink: 0;
-            align-self: stretch;
             width: 100%;
+            max-width: 664px;
             order: 2;
-            padding-top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            height: auto;
+            gap: 24px; /* Incrementato lo spazio tra paragrafo e bottone */
+            padding-top: 16px;
         }
 
         .description-wrap p {
-            color: var(--color-content-primary);
-            font-family: 'Satoshi Variable', 'Satoshi', 'Inter', sans-serif;
-            font-size: 24px;
-            font-style: normal;
-            font-weight: 400;
+            font-size: 24px; /* Ingrandito il testo per il tablet */
             line-height: normal;
             margin: 0;
             padding-bottom: 0;
         }
 
+        .listen-btn {
+            margin-top: 0;
+        }
+
         .closer-caption {
+            position: absolute;
             top: 15.12%;
-            left: 16.76%;
+            left: 14.94%;
             right: 16.76%;
+            font-size: 16px;
+            line-height: 1.33;
+            margin: 0;
+            color: #111111 !important;
+            z-index: 10;
         }
 
         .footer {
@@ -801,8 +892,15 @@
         }
 
         .header {
+            display: flex;
+            height: 1255px;
+            padding: 863px 24px 152px 24px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
             gap: 64px;
-            padding: 743px 24px 152px;
+            flex-shrink: 0;
+            align-self: stretch;
         }
 
         .header-lead,
@@ -814,8 +912,14 @@
         }
 
         .band {
-            gap: 16px;
+            display: flex;
+            height: 324px;
             padding: 0 24px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+            flex-shrink: 0;
+            align-self: stretch;
         }
 
         .band-media {
@@ -825,14 +929,16 @@
         }
 
         .member-image {
+            position: relative;
             width: 100%;
             max-width: 354px;
             height: 200px;
+            object-fit: cover;
         }
 
         .band-line {
             font-size: 16px;
-            gap: 4px;
+            gap: 8px; /* Uniformata la spaziatura tra i blocchi */
             width: 100%;
             max-width: 354px;
         }
@@ -840,13 +946,13 @@
         .band-line-top,
         .band-line-bottom {
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 8px; /* Uniformata la spaziatura tra righe */
         }
 
         .band-line-bottom {
             flex-direction: column;
             align-items: flex-start;
-            gap: 2px;
+            gap: 8px; /* Uniformata la spaziatura tra gli elementi della colonna */
         }
 
         .member-token {
@@ -860,24 +966,37 @@
 
         .filters {
             display: flex;
-            padding: 0 24px;
+            padding: 32px 24px;
+            flex-direction: row; 
+            flex-wrap: nowrap; 
             align-items: center;
-            gap: 16px;
             align-self: stretch;
-            height: auto;
+            height: auto; 
+            gap: 10px; /* Ridotta la distanza tra i bottoni della barra filtri */
+            
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch; 
+            scrollbar-width: none; 
+        }
+
+        .filters::-webkit-scrollbar {
+            display: none;
         }
 
         .filters button {
             font-size: 16px;
             height: auto;
-            padding: 4px 8px;
+            padding: 6px 14px; 
             width: auto;
+            flex-shrink: 0; 
         }
 
-        .filters button:nth-child(1) { width: auto; }
-        .filters button:nth-child(2) { width: auto; }
-        .filters button:nth-child(3) { width: auto; }
-        .filters button:nth-child(4) { width: auto; }
+        .filters button:nth-child(1),
+        .filters button:nth-child(2),
+        .filters button:nth-child(3),
+        .filters button:nth-child(4) {
+            width: max-content; 
+        }       
 
         .content {
             gap: 56px;
@@ -921,29 +1040,19 @@
             object-fit: cover;
         }
 
-        .closer-caption {
-            top: 11.3%;
-            left: 15.82%;
-            right: 15.82%;
-            font-size: 12px;
-            line-height: 1.25;
-        }
-
         .description-wrap {
             width: 100%;
             max-width: 354px;
-            height: auto;
             order: 2;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+            height: auto; 
             gap: 16px;
             padding-top: 0;
-            align-self: auto;
         }
 
         .description-wrap p {
-            font-family: 'Satoshi', 'Inter', sans-serif;
             font-size: 16px;
             line-height: 1.35;
             padding-bottom: 0;
@@ -951,6 +1060,19 @@
 
         .listen-btn {
             font-size: 16px;
+        }
+
+        .closer-caption {
+            display: block; 
+            position: absolute;
+            top: 11.3%;
+            left: 15.82%;
+            right: 15.82%;
+            font-size: 12px;
+            line-height: 1.25;
+            margin: 0;
+            color: #111111 !important;
+            z-index: 10;
         }
 
         .footer {

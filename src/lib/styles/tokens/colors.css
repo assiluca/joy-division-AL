@@ -5,7 +5,7 @@
 	--color-content-primary: #111111;
 	--color-content-muted: #333333;
 	--color-link-default: #111111;
-	--color-link-selected: #168013;
+	--color-link-selected: #29991B;
 
 	--color-bg: var(--color-background-primary);
 	--color-text: var(--color-content-primary);
@@ -19,6 +19,6 @@
 		--color-content-primary: #fafafa;
 		--color-content-muted: #d0d0d0;
 		--color-link-default: #fafafa;
-		--color-link-selected: #3ea874;
+		--color-link-selected: #40B226;
 	}
 }
