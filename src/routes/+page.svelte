@@ -583,6 +583,80 @@
         }
     }
 
+    @media (min-width: 1025px) and (max-width: 1372px) {
+        .header {
+            height: auto;
+            padding: 32vw 80px 32px;
+        }
+
+        .filters {
+            padding: 32px 80px;
+            flex-wrap: wrap;
+            height: auto;
+        }
+
+        .content {
+            gap: 120px;
+            min-height: 0;
+        }
+
+        .group-block {
+            gap: 120px;
+            height: auto;
+        }
+
+        .release-card {
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 0 80px;
+            height: auto;
+        }
+
+        .copy-wrap {
+            display: contents;
+        }
+
+        h2 {
+            width: 100%;
+            text-align: center;
+            order: 0;
+        }
+
+        .release-cover-wrap {
+            width: 100%;
+            max-width: 549px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto;
+            order: 1;
+        }
+
+        .release-card img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1 / 1;
+        }
+
+        .description-wrap {
+            position: static;
+            width: 100%;
+            max-width: 664px;
+            order: 2;
+            gap: 24px;
+            padding-top: 16px;
+        }
+
+        .description-wrap p {
+            padding-bottom: 0;
+        }
+
+        .footer {
+            height: auto;
+            padding: 72px 80px;
+        }
+    }
+
     h2 {
         font-family: 'trajan-pro-3', 'Trajan Pro 3', 'Cormorant Garamond', serif;
         font-size: 56px;

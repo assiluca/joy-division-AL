@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { env } from '$env/dynamic/public';
-	import favicon from '$lib/assets/favicon.svg';
+	import logo from '$lib/assets/foto sito joy division/logo.jpg';
 
 	import "$lib/styles/reset.css";
 	import "$lib/styles/tokens.css";
@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href={logo} />
 
 	<!-- Satoshi font -->
 	<link rel="preconnect" href="https://api.fontshare.com">
