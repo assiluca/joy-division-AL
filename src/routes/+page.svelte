@@ -971,18 +971,19 @@
         }
 
         .top-title {
-            height: 105px;
-            padding: 16px 24px;
+            height: auto;
+            padding: 24px 24px 40px;
+            margin-bottom: 32px;
         }
 
         h1 {
-            font-size: 40px;
+            font-size: 44px;
         }
 
         .header {
             display: flex;
-            height: 1255px;
-            padding: 863px 24px 152px 24px;
+            height: auto;
+            padding: 920px 24px 80px 24px;
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
@@ -1026,7 +1027,7 @@
 
         .band-line {
             font-size: 16px;
-            gap: 8px; /* Uniformata la spaziatura tra i blocchi */
+            gap: 8px;
             width: 100%;
             max-width: 354px;
         }
@@ -1034,13 +1035,13 @@
         .band-line-top,
         .band-line-bottom {
             flex-wrap: wrap;
-            gap: 8px; /* Uniformata la spaziatura tra righe */
+            gap: 8px; 
         }
 
         .band-line-bottom {
             flex-direction: column;
             align-items: flex-start;
-            gap: 8px; /* Uniformata la spaziatura tra gli elementi della colonna */
+            gap: 8px; 
         }
 
         .member-token {
