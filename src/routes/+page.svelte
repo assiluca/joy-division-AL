@@ -471,12 +471,26 @@
         transition: all 160ms ease;
     }
 
+    .filters button:hover {
+        color: var(--color-content-muted);
+    }
+
+    .filters button:focus-visible {
+        outline: 2px solid var(--color-link-selected);
+        outline-offset: 3px;
+    }
+
     .filters button:nth-child(1) { width: 85px; }
     .filters button:nth-child(2) { width: 100px; }
     .filters button:nth-child(3) { width: 103px; }
     .filters button:nth-child(4) { width: 123px; }
 
     .filters button.active {
+        background: var(--color-link-selected);
+        color: var(--color-background-primary);
+    }
+
+    .filters button.active:hover {
         background: var(--color-link-selected);
         color: var(--color-background-primary);
     }
